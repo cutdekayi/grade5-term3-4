@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Math Quest – Grade 5 (Cambridge Term 3 & 4)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --paper:#FFF9EE; --grid:#E9DFC8; --card:#FFFFFF; --ink:#1F2A5A; --muted:#5B6490;
+  --sun:#FFC93C; --mint:#2BB58A; --mint-bg:#DDF6EC; --coral:#F2554A; --coral-bg:#FFE3E0;
+  --sky:#3B8BEB; --sky-bg:#E3F0FF; --line:#D9D2BE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141A3A; --grid:#1D2550; --card:#1E2755; --ink:#F5F1E3; --muted:#AAB2DD;
+    --mint-bg:#16403A; --coral-bg:#4A2430; --sky-bg:#1B3664; --line:#38427A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141A3A; --grid:#1D2550; --card:#1E2755; --ink:#F5F1E3; --muted:#AAB2DD;
+  --mint-bg:#16403A; --coral-bg:#4A2430; --sky-bg:#1B3664; --line:#38427A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;min-height:100vh;color:var(--ink);background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  font-family:"Fredoka","Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.45;
+}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.logo{font-weight:700;font-size:20px;flex:1}
+.pill{background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-weight:600;font-size:15px;white-space:nowrap}
+.icon-btn{background:var(--card);border:2px solid var(--ink);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;color:var(--ink)}
+.icon-btn:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--ink)}
+.hidden{display:none!important}
+
+/* start */
+.hero{text-align:center}
+.hero h1{font-size:clamp(34px,8vw,52px);line-height:1.05;margin:8px 0 6px}
+.hero p{color:var(--muted);margin:6px 0}
+.big-owl{font-size:88px;display:inline-block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(4deg)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+.chip{background:var(--sky-bg);border:2px solid var(--sky);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:500}
+.btn{font-family:inherit;font-weight:700;font-size:20px;border:3px solid var(--ink);border-radius:16px;padding:12px 26px;cursor:pointer;background:var(--sun);color:#1F2A5A;box-shadow:0 5px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--card);color:var(--ink)}
+
+/* quiz */
+.progress{height:16px;border:3px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden;margin-bottom:14px}
+.progress>i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--mint),var(--mint) 10px,#4CCBA4 10px,#4CCBA4 20px);transition:width .5s cubic-bezier(.3,1.4,.5,1)}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;font-size:15px;font-weight:600}
+.topic{background:var(--sun);color:#1F2A5A;border:2px solid var(--ink);border-radius:10px;padding:2px 10px}
+.qrow{display:flex;gap:14px;align-items:flex-start}
+.mascot{font-size:50px;line-height:1;flex:none;transform-origin:50% 90%}
+.mascot.hop{animation:hop .6s}
+.mascot.shake{animation:shake .5s}
+@keyframes hop{0%{transform:translateY(0)}30%{transform:translateY(-26px) rotate(-10deg)}60%{transform:translateY(0) rotate(8deg)}80%{transform:translateY(-8px)}100%{transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px) rotate(-8deg)}40%{transform:translateX(10px) rotate(8deg)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
+.q{font-size:clamp(20px,4.6vw,26px);font-weight:600;margin:0;line-height:1.3}
+.qwrap{animation:slidein .35s ease-out}
+@keyframes slidein{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.answers{display:grid;gap:12px;margin-top:20px}
+.opt{font-family:inherit;font-size:20px;font-weight:600;text-align:left;background:var(--card);color:var(--ink);border:3px solid var(--ink);border-radius:16px;padding:12px 16px;cursor:pointer;box-shadow:0 4px 0 var(--ink);display:flex;gap:12px;align-items:center;transition:transform .08s,box-shadow .08s,background .2s}
+.opt:hover:not(:disabled){background:var(--sky-bg);transform:translateY(-2px)}
+.opt:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.opt .k{flex:none;width:32px;height:32px;border-radius:50%;background:var(--sun);color:#1F2A5A;border:2px solid var(--ink);display:grid;place-items:center;font-size:16px}
+.opt.right{background:var(--mint-bg);border-color:var(--mint);box-shadow:0 4px 0 var(--mint);animation:pop .5s}
+.opt.wrong{background:var(--coral-bg);border-color:var(--coral);box-shadow:0 4px 0 var(--coral);animation:shake .5s}
+.opt:disabled{cursor:default}
+.yn{grid-template-columns:1fr 1fr}
+.yn .opt{justify-content:center;font-size:28px;padding:20px 10px}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+.numrow{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.num{flex:1;min-width:140px;font-family:inherit;font-size:26px;font-weight:600;padding:10px 14px;border:3px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink)}
+.num.right{border-color:var(--mint);background:var(--mint-bg)}
+.num.wrong{border-color:var(--coral);background:var(--coral-bg);animation:shake .5s}
+.hint{color:var(--muted);font-size:14px;margin-top:8px}
+
+.fb{margin-top:20px;border:3px solid var(--ink);border-radius:18px;padding:16px 18px;animation:rise .35s ease-out}
+.fb.good{background:var(--mint-bg);border-color:var(--mint)}
+.fb.bad{background:var(--coral-bg);border-color:var(--coral)}
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.fb h3{margin:0 0 6px;font-size:22px}
+.fb .ans{font-weight:700;margin:0 0 8px}
+.fb .why{font-size:17px;margin:0}
+.fb .why b{display:inline-block;background:var(--ink);color:var(--paper);border-radius:8px;padding:0 8px;margin-right:6px;font-size:14px}
+.fb .go{margin-top:14px;text-align:right}
+
+/* results */
+.stars{font-size:46px;letter-spacing:4px}
+.stars span{display:inline-block;animation:pop .6s both}
+.score-big{font-size:64px;font-weight:700;line-height:1}
+.bars{margin:18px 0;display:grid;gap:10px;text-align:left}
+.bar{display:grid;grid-template-columns:130px 1fr 52px;gap:10px;align-items:center;font-size:15px;font-weight:500}
+.bar .t{height:14px;border:2px solid var(--ink);border-radius:99px;background:var(--card);overflow:hidden}
+.bar .t i{display:block;height:100%;background:var(--mint);width:0;transition:width 1s ease-out}
+details{margin-top:14px;text-align:left}
+summary{cursor:pointer;font-weight:700}
+.rev{border-top:2px dashed var(--line);padding:10px 0;font-size:16px}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+@media (max-width:520px){
+  .yn{grid-template-columns:1fr 1fr}
+  .bar{grid-template-columns:96px 1fr 44px}
+  .card{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">🧮 Math Quest</div>
+    <span class="pill" id="streakPill" title="Streak">🔥 0</span>
+    <span class="pill" id="scorePill" title="Score">⭐ 0</span>
+    <button class="icon-btn" id="muteBtn" aria-label="Toggle sound">🔊</button>
+  </div>
+
+  <!-- START -->
+  <section class="card hero" id="start">
+    <div class="big-owl">🦉</div>
+    <h1>Math Quest</h1>
+    <p><b>Grade 5 · Cambridge Primary Stage 5</b></p>
+    <p>Term 3 &amp; Term 4 · 50 questions · multiple choice, Yes/No and type-in answers</p>
+    <div class="chips">
+      <span class="chip">Fractions</span><span class="chip">Decimals &amp; Percentages</span>
+      <span class="chip">Multiplication &amp; Division</span><span class="chip">Factors &amp; Primes</span>
+      <span class="chip">Area &amp; Perimeter</span><span class="chip">Time &amp; Units</span>
+      <span class="chip">Angles &amp; Shapes</span><span class="chip">Coordinates</span>
+      <span class="chip">Data &amp; Probability</span><span class="chip">Negative Numbers</span>
+    </div>
+    <p style="margin-bottom:18px">Every answer comes with a clear explanation. Turn your sound on!</p>
+    <button class="btn" id="startBtn">Start the quest!</button>
+    <p class="hint" style="margin-top:14px">Questions come in a random order each time.</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden">
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="card">
+      <div class="meta"><span class="topic" id="topic"></span><span id="counter"></span></div>
+      <div class="qwrap" id="qwrap">
+        <div class="qrow"><div class="mascot" id="mascot">🦉</div><p class="q" id="qtext"></p></div>
+        <div class="answers" id="answers"></div>
+      </div>
+      <div id="fb" class="fb hidden" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="card hero hidden" id="result">
+    <div class="stars" id="stars"></div>
+    <h1 id="rTitle" style="font-size:34px;margin:6px 0"></h1>
+    <div class="score-big" id="rScore"></div>
+    <p id="rMsg"></p>
+    <div class="bars" id="bars"></div>
+    <button class="btn" id="againBtn">Play again</button>
+    <details id="review"><summary>Review the questions I missed</summary><div id="revList"></div></details>
+  </section>
+</div>
+
+<script>
+/* ---------------- QUESTION BANK (50) ----------------
+ type: mc = multiple choice | yn = yes/no | num = type the number
+ e = explanation                                                  */
+const Q = [
+/* Fractions */
+{t:"Fractions",type:"mc",q:"What is 3/4 + 1/8?",o:["4/12","7/8","4/8","5/8"],a:"7/8",e:"Make the denominators the same. 3/4 = 6/8 (multiply top and bottom by 2). Then 6/8 + 1/8 = 7/8. We only add the numerators; the denominator stays 8."},
+{t:"Fractions",type:"yn",q:"Are 2/3 and 4/6 equivalent fractions?",a:"Yes",e:"Multiplying the numerator and denominator by the same number does not change the value. 2/3 × (2/2) = 4/6, so they name the same amount."},
+{t:"Fractions",type:"mc",q:"Write the improper fraction 7/4 as a mixed number.",o:["1 1/4","2 1/4","1 3/4","3/4"],a:"1 3/4",e:"Divide 7 by 4: it goes in 1 time with 3 left over. So 7/4 = 1 whole and 3/4, written 1 3/4."},
+{t:"Fractions",type:"num",q:"What is 2/5 of 35?",a:14,e:"Find 1/5 first by dividing by the denominator: 35 ÷ 5 = 7. Then multiply by the numerator: 7 × 2 = 14."},
+{t:"Fractions",type:"mc",q:"Which fraction is the largest?",o:["3/5","1/2","7/10","2/3"],a:"7/10",e:"Convert to decimals: 3/5 = 0.6, 1/2 = 0.5, 2/3 ≈ 0.67, 7/10 = 0.7. The biggest decimal is 0.7, so 7/10 is largest."},
+{t:"Fractions",type:"yn",q:"Is 5/6 greater than 3/4?",a:"Yes",e:"Use a common denominator of 12: 5/6 = 10/12 and 3/4 = 9/12. Since 10/12 > 9/12, 5/6 is greater."},
+/* Decimals & percentages */
+{t:"Decimals & %",type:"num",q:"0.6 + 0.75 = ?",a:1.35,e:"Line up the decimal points: 0.60 + 0.75 = 1.35. Writing 0.6 as 0.60 keeps each place value in its correct column."},
+{t:"Decimals & %",type:"mc",q:"What is 45% as a decimal?",o:["4.5","0.045","45","0.45"],a:"0.45",e:"Percent means 'out of 100'. So 45% = 45/100 = 0.45."},
+{t:"Decimals & %",type:"num",q:"What is 25% of 80?",a:20,e:"25% = 1/4. One quarter of 80 is 80 ÷ 4 = 20."},
+{t:"Decimals & %",type:"yn",q:"Is 0.5 equal to 50%?",a:"Yes",e:"0.5 = 5/10 = 50/100 = 50%. They are three ways of writing one half."},
+{t:"Decimals & %",type:"mc",q:"Round 3.47 to the nearest tenth.",o:["3.4","3.5","3.0","4"],a:"3.5",e:"Look at the hundredths digit (7). It is 5 or more, so round the tenths digit (4) up to 5. The answer is 3.5."},
+{t:"Decimals & %",type:"mc",q:"Write 0.35 as a fraction in its simplest form.",o:["35/10","3/5","7/20","35/1000"],a:"7/20",e:"0.35 = 35/100. Divide both numbers by 5: 35 ÷ 5 = 7 and 100 ÷ 5 = 20. So 0.35 = 7/20."},
+{t:"Decimals & %",type:"num",q:"12.5 − 4.8 = ?",a:7.7,e:"Subtract 5 then add back 0.2: 12.5 − 5 = 7.5, and 7.5 + 0.2 = 7.7. (4.8 is 0.2 less than 5, so we took away too much.)"},
+{t:"Decimals & %",type:"yn",q:"Is 0.07 greater than 0.7?",a:"No",e:"0.7 = 7 tenths = 0.70, while 0.07 = 7 hundredths. 0.70 is ten times bigger than 0.07, so 0.07 is smaller."},
+/* Multiplication & division */
+{t:"× and ÷",type:"num",q:"24 × 15 = ?",a:360,e:"Split 15 into 10 + 5. 24 × 10 = 240 and 24 × 5 = 120. Add: 240 + 120 = 360."},
+{t:"× and ÷",type:"num",q:"4.5 × 100 = ?",a:450,e:"Multiplying by 100 moves every digit two places to the left (the number gets 100 times bigger). 4.5 becomes 450."},
+{t:"× and ÷",type:"num",q:"144 ÷ 12 = ?",a:12,e:"12 × 12 = 144, so 144 ÷ 12 = 12. Division is the inverse (opposite) of multiplication."},
+{t:"× and ÷",type:"mc",q:"0.8 × 6 = ?",o:["48","0.48","4.8","5.4"],a:"4.8",e:"0.8 is 8 tenths. 8 × 6 = 48, so 48 tenths = 4.8."},
+{t:"× and ÷",type:"num",q:"156 ÷ 6 = ?",a:26,e:"Short division: 15 ÷ 6 = 2 remainder 3, then 36 ÷ 6 = 6. Digits: 26. Check: 26 × 6 = 156 ✓."},
+{t:"× and ÷",type:"yn",q:"Is 438 divisible by 3?",a:"Yes",e:"A number is divisible by 3 if its digits add up to a multiple of 3. 4 + 3 + 8 = 15, and 15 is a multiple of 3. So yes (438 ÷ 3 = 146)."},
+{t:"× and ÷",type:"num",q:"34 × 21 = ?",a:714,e:"34 × 20 = 680 and 34 × 1 = 34. Add: 680 + 34 = 714."},
+{t:"Factors & primes",type:"mc",q:"Which list shows ALL the factors of 12?",o:["1, 2, 3, 4, 6, 12","1, 2, 4, 6, 12","2, 3, 4, 6","1, 3, 4, 12"],a:"1, 2, 3, 4, 6, 12",e:"Factors come in pairs that multiply to 12: 1×12, 2×6, 3×4. So the factors are 1, 2, 3, 4, 6 and 12."},
+{t:"Factors & primes",type:"num",q:"What is the lowest common multiple (LCM) of 4 and 6?",a:12,e:"Multiples of 4: 4, 8, 12… Multiples of 6: 6, 12… The first number in both lists is 12."},
+{t:"Factors & primes",type:"yn",q:"Is 17 a prime number?",a:"Yes",e:"A prime number has exactly two factors: 1 and itself. 17 is not divisible by 2, 3, 5, 7, 11 or 13, so its only factors are 1 and 17."},
+{t:"Factors & primes",type:"num",q:"What is 7 squared (7²)?",a:49,e:"Squaring a number means multiplying it by itself: 7 × 7 = 49. A square number can be drawn as a square with 7 rows of 7 dots."},
+/* Measure */
+{t:"Area & perimeter",type:"num",q:"A rectangle is 9 cm long and 4 cm wide. What is its area in cm²?",a:36,e:"Area of a rectangle = length × width = 9 × 4 = 36 cm². Area is measured in square units."},
+{t:"Area & perimeter",type:"num",q:"What is the perimeter of the same rectangle (9 cm by 4 cm), in cm?",a:26,e:"Perimeter is the distance around the shape: 9 + 4 + 9 + 4 = 26 cm. Or 2 × (9 + 4) = 26."},
+{t:"Area & perimeter",type:"yn",q:"A square has sides of 5 cm. Is its perimeter 25 cm?",a:"No",e:"A square has 4 equal sides: 4 × 5 = 20 cm. (25 cm² would be the area, 5 × 5, and it is in different units.)"},
+{t:"Area & perimeter",type:"num",q:"A rectangle has an area of 48 cm² and a length of 8 cm. What is its width in cm?",a:6,e:"Area = length × width, so width = area ÷ length = 48 ÷ 8 = 6 cm."},
+{t:"Time & units",type:"mc",q:"How many grams are in 2.5 kg?",o:["25 g","250 g","2500 g","25 000 g"],a:"2500 g",e:"1 kg = 1000 g. So 2.5 × 1000 = 2500 g."},
+{t:"Time & units",type:"num",q:"How many minutes are in 3 hours 45 minutes?",a:225,e:"3 hours = 3 × 60 = 180 minutes. Add the 45 minutes: 180 + 45 = 225 minutes."},
+{t:"Time & units",type:"mc",q:"A train leaves at 09:50. The journey takes 1 hour 35 minutes. When does it arrive?",o:["10:25","11:25","11:15","11:35"],a:"11:25",e:"09:50 + 1 hour = 10:50. Then add 35 minutes: 10:50 + 10 min = 11:00, and 25 more minutes = 11:25."},
+{t:"Time & units",type:"yn",q:"Does 1 litre equal 100 millilitres?",a:"No",e:"The prefix 'milli' means one thousandth. 1 litre = 1000 ml. (100 ml is only a tenth of a litre.)"},
+{t:"Time & units",type:"num",q:"Convert 450 cm into metres.",a:4.5,e:"1 m = 100 cm, so divide by 100: 450 ÷ 100 = 4.5 m."},
+/* Geometry */
+{t:"Angles & shapes",type:"mc",q:"What type of angle is 135°?",o:["Acute","Right","Obtuse","Reflex"],a:"Obtuse",e:"Acute < 90°, right = 90°, obtuse is between 90° and 180°, reflex is between 180° and 360°. 135° is between 90° and 180°, so it is obtuse."},
+{t:"Angles & shapes",type:"num",q:"Angles on a straight line add up to 180°. One angle is 110°. What is the other angle (in degrees)?",a:70,e:"180° − 110° = 70°. Angles on a straight line always sum to 180°."},
+{t:"Angles & shapes",type:"num",q:"Two angles in a triangle are 65° and 50°. What is the third angle (in degrees)?",a:65,e:"The angles in any triangle sum to 180°. 65 + 50 = 115, and 180 − 115 = 65°."},
+{t:"Angles & shapes",type:"yn",q:"Does a rhombus have four equal sides?",a:"Yes",e:"A rhombus is a quadrilateral with all four sides equal in length. Its opposite angles are equal and its opposite sides are parallel."},
+{t:"Angles & shapes",type:"mc",q:"How many edges does a cube have?",o:["6","8","10","12"],a:"12",e:"A cube has 6 faces, 8 vertices (corners) and 12 edges. Check with Euler's rule: F + V − E = 6 + 8 − 12 = 2 ✓."},
+{t:"Angles & shapes",type:"mc",q:"How many lines of symmetry does a regular hexagon have?",o:["3","4","6","8"],a:"6",e:"A regular polygon with n sides has n lines of symmetry. A hexagon has 6 sides, so it has 6 lines of symmetry."},
+{t:"Angles & shapes",type:"mc",q:"Which 3D shape has 5 faces: 2 triangles and 3 rectangles?",o:["Square-based pyramid","Triangular prism","Cuboid","Triangular pyramid"],a:"Triangular prism",e:"A prism has two identical end faces joined by rectangles. A triangular prism has 2 triangular ends and 3 rectangular sides."},
+{t:"Angles & shapes",type:"yn",q:"Is a 90° angle a reflex angle?",a:"No",e:"A 90° angle is a right angle. Reflex angles are larger than 180° but smaller than 360°."},
+/* Position */
+{t:"Coordinates",type:"mc",q:"Point A is at (3, 5). It moves 2 squares right and 1 square down. Where is it now?",o:["(1, 6)","(5, 6)","(4, 4)","(5, 4)"],a:"(5, 4)",e:"Right changes x: 3 + 2 = 5. Down changes y: 5 − 1 = 4. The new point is (5, 4). Remember: (x, y) – along the corridor, then up the stairs."},
+{t:"Coordinates",type:"yn",q:"When a shape is reflected, does its size change?",a:"No",e:"A reflection (mirror image) is a transformation that keeps the shape's size and angles. Only its position and orientation change."},
+/* Data & probability */
+{t:"Data & chance",type:"num",q:"What is the mean of 4, 6, 8, 10 and 12?",a:8,e:"Mean = total ÷ number of values. 4 + 6 + 8 + 10 + 12 = 40, and 40 ÷ 5 = 8."},
+{t:"Data & chance",type:"num",q:"What is the median of 3, 9, 5, 7, 1?",a:5,e:"Put the numbers in order: 1, 3, 5, 7, 9. The median is the middle value, which is 5."},
+{t:"Data & chance",type:"num",q:"What is the mode of 2, 3, 3, 5, 6, 3, 8?",a:3,e:"The mode is the value that appears most often. The number 3 appears three times, more than any other."},
+{t:"Data & chance",type:"mc",q:"What is the probability of rolling a 6 on a fair six-sided dice?",o:["1/6","1/3","1/2","6"],a:"1/6",e:"Probability = favourable outcomes ÷ total outcomes. Only one face shows 6 out of 6 equally likely faces, so 1/6."},
+{t:"Data & chance",type:"yn",q:"A bag holds only red counters. Is picking a blue counter impossible?",a:"Yes",e:"An event that cannot happen has probability 0 – it is impossible. There are no blue counters in the bag."},
+/* Negative numbers */
+{t:"Negative numbers",type:"num",q:"The temperature is −3 °C and it rises by 8 °C. What is the new temperature (in °C)?",a:5,e:"On a number line, start at −3 and move 8 steps up: 3 steps reach 0, then 5 more reach +5. So −3 + 8 = 5 °C."}
+];
+
+/* ---------------- SOUND (Web Audio, no files) ---------------- */
+let actx=null, muted=false;
+function ac(){ if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } if(actx&&actx.state==="suspended") actx.resume(); return actx; }
+function tone(freq,start,dur,type="sine",vol=.18){
+  const a=ac(); if(!a||muted) return;
+  const o=a.createOscillator(), g=a.createGain();
+  o.type=type; o.frequency.setValueAtTime(freq,a.currentTime+start);
+  g.gain.setValueAtTime(0.0001,a.currentTime+start);
+  g.gain.exponentialRampToValueAtTime(vol,a.currentTime+start+.02);
+  g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+start+dur);
+  o.connect(g); g.connect(a.destination); o.start(a.currentTime+start); o.stop(a.currentTime+start+dur+.05);
+}
+const sfx={
+  click(){tone(520,0,.08,"triangle",.12)},
+  right(){[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.22,"triangle",.2))},
+  wrong(){tone(220,0,.2,"sawtooth",.14);tone(165,.16,.35,"sawtooth",.14)},
+  streak(){[659,784,988,1319,1568].forEach((f,i)=>tone(f,i*.07,.25,"square",.1))},
+  win(){[523,523,523,659,784,659,784,1047].forEach((f,i)=>tone(f,i*.13,.25,"triangle",.2))},
+  ok(){[392,440,523].forEach((f,i)=>tone(f,i*.12,.25,"triangle",.18))}
+};
+
+/* ---------------- CONFETTI ---------------- */
+const cv=document.getElementById("fx"), cx=cv.getContext("2d");
+let parts=[], raf=null;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}
+addEventListener("resize",size); size();
+function burst(n=70,x=.5,y=.4){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cols=["#FFC93C","#2BB58A","#F2554A","#3B8BEB","#B26BFF","#FF8FB1"];
+  for(let i=0;i<n;i++){
+    const ang=Math.random()*Math.PI*2, sp=(4+Math.random()*9)*devicePixelRatio;
+    parts.push({x:cv.width*x,y:cv.height*y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp-6*devicePixelRatio,
+      s:(6+Math.random()*7)*devicePixelRatio,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:90+Math.random()*40});
+  }
+  if(!raf) raf=requestAnimationFrame(tick);
+}
+function tick(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(p=>p.life>0);
+  for(const p of parts){
+    p.x+=p.vx; p.y+=p.vy; p.vy+=.35*devicePixelRatio; p.vx*=.99; p.r+=p.vr; p.life--;
+    cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.globalAlpha=Math.min(1,p.life/30);
+    cx.fillStyle=p.c; cx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6); cx.restore();
+  }
+  raf = parts.length ? requestAnimationFrame(tick) : null;
+  if(!raf) cx.clearRect(0,0,cv.width,cv.height);
+}
+
+/* ---------------- GAME STATE ---------------- */
+const $=id=>document.getElementById(id);
+let deck=[], idx=0, score=0, streak=0, best=0, answered=false, log=[];
+const cheers=["Great job!","Awesome!","Brilliant!","Nailed it!","Super!","Perfect!","You got it!"];
+const oops=["Not quite.","Close one!","Let's learn from this.","Almost!"];
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function start(){
+  ac(); sfx.ok();
+  deck=shuffle(Q); idx=0; score=0; streak=0; best=0; log=[];
+  updatePills();
+  $("start").classList.add("hidden"); $("result").classList.add("hidden"); $("quiz").classList.remove("hidden");
+  show();
+}
+function updatePills(){ $("scorePill").textContent="⭐ "+score; $("streakPill").textContent="🔥 "+streak; }
+
+function show(){
+  answered=false;
+  const q=deck[idx];
+  $("bar").style.width=(idx/deck.length*100)+"%";
+  $("counter").textContent=`Question ${idx+1} of ${deck.length}`;
+  $("topic").textContent=q.t;
+  $("qtext").textContent=q.q;
+  $("mascot").textContent="🦉"; $("mascot").className="mascot";
+  $("fb").classList.add("hidden");
+  const box=$("answers"); box.innerHTML=""; box.className="answers";
+  const wrap=$("qwrap"); wrap.style.animation="none"; void wrap.offsetWidth; wrap.style.animation="";
+
+  if(q.type==="mc"){
+    shuffle(q.o).forEach((t,i)=>{
+      const b=document.createElement("button"); b.className="opt";
+      b.innerHTML=`<span class="k">${"ABCD"[i]}</span><span></span>`; b.lastChild.textContent=t;
+      b.onclick=()=>check(t,b); box.appendChild(b);
+    });
+  } else if(q.type==="yn"){
+    box.classList.add("yn");
+    [["Yes","✅"],["No","❌"]].forEach(([t,em])=>{
+      const b=document.createElement("button"); b.className="opt"; b.textContent=em+" "+t;
+      b.dataset.v=t; b.onclick=()=>check(t,b); box.appendChild(b);
+    });
+  } else {
+    box.innerHTML=`<div class="numrow"><input class="num" id="numIn" inputmode="decimal" autocomplete="off" placeholder="Type your answer" aria-label="Your answer"><button class="btn" id="numGo">Check</button></div><div class="hint">Type just the number (no units). Decimals use a dot, e.g. 4.5</div>`;
+    const inp=$("numIn");
+    $("numGo").onclick=()=>{ if(inp.value.trim()==="") {inp.focus();return;} check(inp.value.trim(),inp); };
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter") $("numGo").click(); });
+    setTimeout(()=>inp.focus({preventScroll:true}),50);
+  }
+}
+
+function check(val,el){
+  if(answered) return; answered=true;
+  const q=deck[idx]; let ok;
+  if(q.type==="num"){ const n=parseFloat(String(val).replace(/,/g,".").replace(/[^\d.\-]/g,"")); ok=Math.abs(n-q.a)<1e-9; }
+  else ok = val===q.a;
+
+  // lock UI + colour
+  if(q.type==="num"){ el.classList.add(ok?"right":"wrong"); el.disabled=true; $("numGo").disabled=true; }
+  else{
+    document.querySelectorAll("#answers .opt").forEach(b=>{
+      b.disabled=true;
+      const t = q.type==="yn" ? b.dataset.v : b.lastChild.textContent;
+      if(t===q.a) b.classList.add("right");
+      else if(b===el) b.classList.add("wrong");
+    });
+  }
+
+  const m=$("mascot");
+  if(ok){
+    score+=10 + Math.min(streak,5)*2; streak++; best=Math.max(best,streak);
+    m.textContent="🤩"; m.classList.add("hop");
+    if(streak>0 && streak%5===0){ sfx.streak(); burst(110); } else { sfx.right(); burst(40); }
+  } else {
+    streak=0; m.textContent="🥺"; m.classList.add("shake"); sfx.wrong();
+  }
+  updatePills();
+  log.push({q,ok,given:val});
+
+  const shown = q.type==="num" ? String(q.a) : q.a;
+  const fb=$("fb"); fb.className="fb "+(ok?"good":"bad");
+  const extra = ok && streak>0 && streak%5===0 ? ` 🔥 ${streak} in a row!` : "";
+  fb.innerHTML=`<h3>${ok?"✅ "+rnd(cheers):"❌ "+rnd(oops)}${extra}</h3>
+    <p class="ans">${ok?"Correct answer":"The correct answer is"}: <span id="shownAns"></span></p>
+    <p class="why"><b>Why?</b><span id="whyTxt"></span></p>
+    <div class="go"><button class="btn" id="nextBtn">${idx+1===deck.length?"See my results":"Next question"}</button></div>`;
+  $("shownAns").textContent=shown; $("whyTxt").textContent=q.e;
+  $("nextBtn").onclick=next;
+  setTimeout(()=>{ fb.scrollIntoView({behavior:"smooth",block:"nearest"}); $("nextBtn").focus({preventScroll:true}); },60);
+}
+function next(){ sfx.click(); idx++; if(idx>=deck.length) finish(); else show(); }
+
+function finish(){
+  $("quiz").classList.add("hidden"); $("result").classList.remove("hidden");
+  const correct=log.filter(l=>l.ok).length, pct=Math.round(correct/deck.length*100);
+  const st = pct>=90?3: pct>=70?2: pct>=40?1:0;
+  $("stars").innerHTML=[0,1,2].map(i=>`<span style="animation-delay:${i*.25}s;${i<st?"":"filter:grayscale(1);opacity:.35"}">⭐</span>`).join("");
+  $("rTitle").textContent = pct>=90?"Math champion! 🏆": pct>=70?"Great work! 🎉": pct>=40?"Good effort! 💪":"Keep practising! 🌱";
+  $("rScore").textContent=`${correct} / ${deck.length}`;
+  $("rMsg").textContent=`${pct}% correct · ${score} points · best streak ${best} 🔥`;
+  // topics
+  const by={}; log.forEach(l=>{const k=l.q.t;(by[k]=by[k]||{c:0,n:0}).n++; if(l.ok) by[k].c++;});
+  $("bars").innerHTML=Object.entries(by).map(([k,v])=>{const p=Math.round(v.c/v.n*100);
+    return `<div class="bar"><span>${k}</span><span class="t"><i data-w="${p}"></i></span><span>${v.c}/${v.n}</span></div>`}).join("");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll(".bar i").forEach(i=>i.style.width=i.dataset.w+"%")));
+  // review
+  const wrong=log.filter(l=>!l.ok);
+  $("review").classList.toggle("hidden",wrong.length===0);
+  $("revList").innerHTML=wrong.map(l=>`<div class="rev"><b></b><br><span></span></div>`).join("");
+  document.querySelectorAll("#revList .rev").forEach((d,i)=>{
+    d.querySelector("b").textContent=wrong[i].q.q;
+    d.querySelector("span").textContent=`Answer: ${wrong[i].q.a}. ${wrong[i].q.e}`;
+  });
+  sfx.win(); burst(150,.5,.3); setTimeout(()=>burst(100,.25,.35),350); setTimeout(()=>burst(100,.75,.35),600);
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+$("startBtn").onclick=start;
+$("againBtn").onclick=start;
+$("muteBtn").onclick=()=>{ muted=!muted; $("muteBtn").textContent=muted?"🔇":"🔊"; if(!muted){ac();sfx.click();} };
+</script>
+</body>
+</html>
